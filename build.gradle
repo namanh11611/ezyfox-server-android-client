@@ -29,10 +29,7 @@ android {
     defaultConfig {
         minSdkVersion 25
         versionCode 1
-        versionName "1.0.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        versionName "1.0.1"
     }
 
     buildTypes {
@@ -44,4 +41,4 @@ android {
 
 }
 
-apply from: 'publishing.gradle'
+// apply from: 'publishing.gradle'
