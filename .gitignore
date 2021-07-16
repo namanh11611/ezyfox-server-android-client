@@ -1,3 +1,7 @@
 /build
 socket.iml
 proguard-rules.pro
+/gradlew
+/gradlew.bat
+/local.properties
+/publishing.gradle
