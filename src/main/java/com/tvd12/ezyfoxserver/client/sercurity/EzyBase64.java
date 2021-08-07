@@ -11,34 +11,34 @@ public final class EzyBase64 {
 	}
 	
 	public static byte[] encode(byte[] input) {
-		byte[] answer = Base64.encode(input, Base64.DEFAULT);
+		byte[] answer = Base64.encode(input, Base64.NO_WRAP);
 		return answer;
 	}
 	
 	public static byte[] decode(byte[] input) {
-		byte[] answer = Base64.decode(input, Base64.DEFAULT);
+		byte[] answer = Base64.decode(input, Base64.NO_WRAP);
 		return answer;
 	}
 	
 	public static byte[] decode(String input) {
-		byte[] answer = Base64.decode(input, Base64.DEFAULT);
+		byte[] answer = Base64.decode(input, Base64.NO_WRAP);
 		return answer;
 	}
 	
 	public static byte[] encode(String input) {
 		byte[] bytes = EzyStrings.getUtfBytes(input);
-		byte[] answer = Base64.encode(bytes, Base64.DEFAULT);
+		byte[] answer = Base64.encode(bytes, Base64.NO_WRAP);
 		return answer;
 	}
 	
 	public static String encodeUtf(String input) {
 		byte[] bytes = EzyStrings.getUtfBytes(input);
-		String answer = Base64.encodeToString(bytes, Base64.DEFAULT);
+		String answer = Base64.encodeToString(bytes, Base64.NO_WRAP);
 		return answer;
 	}
 	
 	public static String decodeUtf(String input) {
-		byte[] bytes = Base64.decode(input, Base64.DEFAULT);
+		byte[] bytes = Base64.decode(input, Base64.NO_WRAP);
 		String answer = EzyStrings.newUtf(bytes);
 		return answer;
 	}
