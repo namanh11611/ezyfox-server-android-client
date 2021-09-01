@@ -65,7 +65,7 @@ public class EzyTcpClient
         this.config = config;
         this.name = config.getClientName();
         this.status = EzyConnectionStatus.NULL;
-        this.pingManager = new EzySimplePingManager();
+        this.pingManager = new EzySimplePingManager(config.getPing());
         this.pingSchedule = new EzyPingSchedule(this);
         this.handlerManager = new EzySimpleHandlerManager(this);
         this.requestSerializer = new EzySimpleRequestSerializer();
@@ -75,7 +75,7 @@ public class EzyTcpClient
     }
 
     protected Set<Object> newUnloggableCommands() {
-        Set<Object> set = new HashSet<Object>();
+        Set<Object> set = new HashSet<>();
         set.add(EzyCommand.PING);
         set.add(EzyCommand.PONG);
         return set;
@@ -205,6 +205,11 @@ public class EzyTcpClient
     }
 
     @Override
+    public EzySocketClient getSocket() {
+        return socketClient;
+    }
+
+    @Override
     public boolean isEnableSSL() {
         return config.isEnableSSL();
     }
@@ -311,8 +316,7 @@ public class EzyTcpClient
     public EzyApp getAppById(int appId) {
         if (zone != null) {
             EzyAppManager appManager = zone.getAppManager();
-            EzyApp app = appManager.getAppById(appId);
-            return app;
+            return appManager.getAppById(appId);
         }
         return null;
     }

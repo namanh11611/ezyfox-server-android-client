@@ -12,6 +12,7 @@ import com.tvd12.ezyfoxserver.client.manager.EzyHandlerManager;
 import com.tvd12.ezyfoxserver.client.manager.EzyPingManager;
 import com.tvd12.ezyfoxserver.client.request.EzyRequest;
 import com.tvd12.ezyfoxserver.client.socket.EzyPingSchedule;
+import com.tvd12.ezyfoxserver.client.socket.EzySocketClient;
 
 /**
  * Created by tavandung12 on 9/20/18.
@@ -31,6 +32,7 @@ public interface EzyClient {
     void processEvents();
     String getName();
     EzyClientConfig getConfig();
+    EzySocketClient getSocket();
     boolean isEnableSSL();
     boolean isEnableDebug();
     EzyUser getMe();
