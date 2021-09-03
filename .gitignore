@@ -4,7 +4,6 @@
 *.idea/
 */.idea/
 **/.idea/
-gradle.properties
 .gradle/
 .idea/
 gradle/
