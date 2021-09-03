@@ -1,0 +1,5 @@
+include ':app'
+include(":socket")
+project(':socket').projectDir = new File('../')
+
+rootProject.name = "EzyFox Server Android"

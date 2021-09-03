@@ -12,6 +12,7 @@ public class EzyClientConfig implements EzySocketClientConfig {
     private final String clientName;
     private final boolean enableSSL;
     private final boolean enableDebug;
+    private final EzyPingConfig ping;
     private final EzyReconnectConfig reconnect;
 
     protected EzyClientConfig(Builder builder) {
@@ -19,6 +20,7 @@ public class EzyClientConfig implements EzySocketClientConfig {
         this.clientName = builder.clientName;
         this.enableSSL = builder.enableSSL;
         this.enableDebug = builder.enableDebug;
+        this.ping = builder.pingConfigBuilder.build();
         this.reconnect = builder.reconnectConfigBuilder.build();
     }
 
@@ -30,6 +32,10 @@ public class EzyClientConfig implements EzySocketClientConfig {
         if(clientName == null)
             return zoneName;
         return clientName;
+    }
+
+    public EzyPingConfig getPing() {
+        return ping;
     }
 
     public EzyReconnectConfig getReconnect() {
@@ -55,9 +61,11 @@ public class EzyClientConfig implements EzySocketClientConfig {
         private String clientName;
         private boolean enableSSL;
         private boolean enableDebug;
+        private final EzyPingConfig.Builder pingConfigBuilder;
         private final EzyReconnectConfig.Builder reconnectConfigBuilder;
 
         public Builder() {
+            this.pingConfigBuilder = new EzyPingConfig.Builder(this);
             this.reconnectConfigBuilder = new EzyReconnectConfig.Builder(this);
         }
 
@@ -87,6 +95,10 @@ public class EzyClientConfig implements EzySocketClientConfig {
         public Builder enableDebug(boolean enableDebug) {
             this.enableDebug = enableDebug;
             return this;
+        }
+
+        public EzyPingConfig.Builder pingConfigBuilder() {
+            return pingConfigBuilder;
         }
 
         public EzyReconnectConfig.Builder reconnectConfigBuilder() {

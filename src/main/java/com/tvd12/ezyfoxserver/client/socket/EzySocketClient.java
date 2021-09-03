@@ -281,9 +281,11 @@ public abstract class EzySocketClient implements EzySocketDelegate {
     }
 
     protected void processReceivedMessages0() {
-        pingManager.setLostPingCount(0);
         socketReader.popMessages(localMessageQueue);
         try {
+            if (localMessageQueue.size() > 0) {
+                pingManager.setLostPingCount(0);
+            }
             for (int i = 0; i < localMessageQueue.size(); ++i) {
                 processReceivedMessage(localMessageQueue.get(i));
             }

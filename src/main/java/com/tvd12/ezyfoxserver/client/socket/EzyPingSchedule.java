@@ -3,8 +3,6 @@ package com.tvd12.ezyfoxserver.client.socket;
 import com.tvd12.ezyfoxserver.client.EzyClient;
 import com.tvd12.ezyfoxserver.client.concurrent.EzyExecutors;
 import com.tvd12.ezyfoxserver.client.constant.EzyDisconnectReason;
-import com.tvd12.ezyfoxserver.client.event.EzyDisconnectionEvent;
-import com.tvd12.ezyfoxserver.client.event.EzyEvent;
 import com.tvd12.ezyfoxserver.client.event.EzyLostPingEvent;
 import com.tvd12.ezyfoxserver.client.manager.EzyPingManager;
 import com.tvd12.ezyfoxserver.client.request.EzyPingRequest;
@@ -73,8 +71,7 @@ public class EzyPingSchedule {
         int lostPingCount = pingManager.increaseLostPingCount();
         int maxLostPingCount = pingManager.getMaxLostPingCount();
         if(lostPingCount >= maxLostPingCount) {
-            EzyEvent event = new EzyDisconnectionEvent(EzyDisconnectReason.SERVER_NOT_RESPONDING.getId());
-            socketEventQueue.addEvent(event);
+            client.getSocket().disconnect(EzyDisconnectReason.SERVER_NOT_RESPONDING.getId());
         }
         else {
             EzyRequest request = new EzyPingRequest();
