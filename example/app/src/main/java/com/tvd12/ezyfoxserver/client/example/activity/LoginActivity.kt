@@ -25,19 +25,20 @@ import com.tvd12.ezyfoxserver.client.example.view.LoginViewModelFactory
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-
+    private lateinit var username: EditText
+    private lateinit var password: EditText
+    private lateinit var login: Button
+    private lateinit var loading: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
-
+        username = findViewById(R.id.username)
+        password = findViewById(R.id.password)
+        login = findViewById(R.id.login)
+        loading = findViewById(R.id.loading)
         val socketProxy = SocketClientProxy.getInstance()
-
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
@@ -82,7 +83,6 @@ class LoginActivity : AppCompatActivity() {
                     password.text.toString()
                 )
             }
-
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
@@ -95,25 +95,26 @@ class LoginActivity : AppCompatActivity() {
                 doLogin()
             }
         }
-        socketProxy.onDisconnectedCallback {
-            loading.visibility = View.GONE
-            showToast("reconnecting ...")
-        }
-        socketProxy.onConnectionFailedCallback {
-            loading.visibility = View.GONE
-            showToast("can not connect to server, please check")
-        }
 
-        socketProxy.onAuthenticated {
-            val messageListIntent = Intent(this, MessageListActivity::class.java)
-            startActivity(messageListIntent)
+        socketProxy.apply {
+            onDisconnectedCallback {
+                loading.visibility = View.GONE
+                showToast("reconnecting ...")
+            }
+
+            onConnectionFailedCallback {
+                loading.visibility = View.GONE
+                showToast("can not connect to server, please check")
+            }
+
+            onAuthenticated {
+                val intent = Intent(this@LoginActivity, MessageListActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
     private fun doLogin() {
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val loading = findViewById<ProgressBar>(R.id.loading)
         loading.visibility = View.VISIBLE
         SocketClientProxy.getInstance().connectToServer(
             username = username.text.toString(),
