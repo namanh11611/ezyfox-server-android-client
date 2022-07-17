@@ -305,7 +305,11 @@ public class EzyTcpClient
 
     @Override
     public EzyApp getApp () {
-        return zone != null ? zone.getApp() : null;
+        if (zone != null) {
+            EzyAppManager appManager = zone.getAppManager();
+            return appManager.getApp();
+        }
+        return null;
     }
 
     @Override

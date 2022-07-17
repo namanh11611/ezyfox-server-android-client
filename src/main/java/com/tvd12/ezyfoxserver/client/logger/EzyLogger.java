@@ -10,6 +10,7 @@ public final class EzyLogger {
     public static final byte LEVEL_INFO = 3;
     public static final byte LEVEL_WARN = 4;
     public static final byte LEVEL_ERROR = 5;
+    public static final byte LEVEL_FATAL = 6;
 
     private static byte level = LEVEL_DEBUG;
 
@@ -62,10 +63,15 @@ public final class EzyLogger {
         }
     }
 
+    public static void fatal (String msg, Throwable e) {
+        if (level <= LEVEL_FATAL) {
+            Log.wtf(TAG, standardizedMessage(msg), e);
+        }
+    }
+
     private static String standardizedMessage (String message) {
-        String builder = Thread.currentThread().getName() +
+        return Thread.currentThread().getName() +
             " | " +
             message;
-        return builder;
     }
 }

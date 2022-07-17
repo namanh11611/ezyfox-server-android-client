@@ -9,7 +9,8 @@ public class MsgPackAesObjectToByteEncoder
 
     public MsgPackAesObjectToByteEncoder (
         EzyMessageToBytes messageToBytes,
-        EzyObjectToMessage objectToMessage) {
+        EzyObjectToMessage objectToMessage
+    ) {
         super(messageToBytes, objectToMessage);
     }
 
