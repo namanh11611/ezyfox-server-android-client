@@ -16,7 +16,7 @@ public abstract class EzyMessageReader<B> {
 
     protected abstract byte readByte (B buffer);
 
-    protected abstract int readMessgeSize (B buffer);
+    protected abstract int readMessageSize (B buffer);
 
     protected abstract void readMessageContent (B buffer, byte[] content);
 
@@ -35,7 +35,7 @@ public abstract class EzyMessageReader<B> {
         if (remaining < getSizeLength()) {
             return false;
         }
-        this.size = readMessgeSize(buffer);
+        this.size = readMessageSize(buffer);
         if (size > maxSize) {
             throw new EzyMaxRequestSizeException(size, maxSize);
         }

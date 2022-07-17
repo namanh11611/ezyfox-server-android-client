@@ -18,7 +18,7 @@ public class EzyByteBufferMessageReader extends EzyMessageReader<ByteBuffer> {
     }
 
     @Override
-    protected int readMessgeSize (ByteBuffer buffer) {
+    protected int readMessageSize (ByteBuffer buffer) {
         return EzyInts.bin2uint(EzyBytes.copy(buffer, getSizeLength()));
     }
 

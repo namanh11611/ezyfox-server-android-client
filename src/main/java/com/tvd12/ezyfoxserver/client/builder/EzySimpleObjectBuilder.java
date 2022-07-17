@@ -22,8 +22,7 @@ public class EzySimpleObjectBuilder
     }
 
     protected EzyHashMap newProduct () {
-        EzyHashMap answer = new EzyHashMap(inputTransformer, outputTransformer);
-        return answer;
+        return new EzyHashMap(inputTransformer, outputTransformer);
     }
 
     /*

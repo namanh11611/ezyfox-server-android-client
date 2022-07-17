@@ -29,7 +29,8 @@ public abstract class EzyDecodeHandlers {
         return EzyDecodeState.PREPARE_MESSAGE;
     }
 
-    public abstract static class Builder implements EzyBuilder<EzyDecodeHandlers> {
+    public abstract static class Builder
+        implements EzyBuilder<EzyDecodeHandlers> {
 
         protected Map<EzyIDecodeState, EzyDecodeHandler> newHandlers () {
             Map<EzyIDecodeState, EzyDecodeHandler> answer = new HashMap<>();
@@ -37,6 +38,8 @@ public abstract class EzyDecodeHandlers {
             return answer;
         }
 
-        protected abstract void addHandlers (Map<EzyIDecodeState, EzyDecodeHandler> answer);
+        protected abstract void addHandlers (
+            Map<EzyIDecodeState, EzyDecodeHandler> answer
+        );
     }
 }

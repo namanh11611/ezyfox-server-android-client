@@ -34,12 +34,12 @@ public class EzyDefaultDecodeHandlers extends EzyDecodeHandlers {
         @Override
         protected void addHandlers (
             Map<EzyIDecodeState, EzyDecodeHandler> answer) {
-            EzyDecodeHandler readMessgeHeader = new ReadMessageHeader();
+            EzyDecodeHandler readMessageHeader = new ReadMessageHeader();
             EzyDecodeHandler prepareMessage = new PrepareMessage();
             EzyDecodeHandler readMessageSize = new ReadMessageSize(maxSize);
             EzyDecodeHandler readMessageContent = new ReadMessageContent();
-            answer.put(PREPARE_MESSAGE, newHandler(prepareMessage, readMessgeHeader));
-            answer.put(READ_MESSAGE_HEADER, newHandler(readMessgeHeader, readMessageSize));
+            answer.put(PREPARE_MESSAGE, newHandler(prepareMessage, readMessageHeader));
+            answer.put(READ_MESSAGE_HEADER, newHandler(readMessageHeader, readMessageSize));
             answer.put(READ_MESSAGE_SIZE, newHandler(readMessageSize, readMessageContent));
             answer.put(READ_MESSAGE_CONTENT, newHandler(readMessageContent));
         }
@@ -49,11 +49,17 @@ public class EzyDefaultDecodeHandlers extends EzyDecodeHandlers {
             return newHandler(handler, null);
         }
 
-        private EzyDecodeHandler newHandler (EzyDecodeHandler handler, EzyDecodeHandler next) {
+        private EzyDecodeHandler newHandler (
+            EzyDecodeHandler handler,
+            EzyDecodeHandler next
+        ) {
             return newHandler((AbstractDecodeHandler) handler, next);
         }
 
-        private EzyDecodeHandler newHandler (AbstractDecodeHandler handler, EzyDecodeHandler next) {
+        private EzyDecodeHandler newHandler (
+            AbstractDecodeHandler handler,
+            EzyDecodeHandler next
+        ) {
             handler.setNextHandler(next);
             handler.setMessageReader(messageReader);
             return handler;

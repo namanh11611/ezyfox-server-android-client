@@ -25,12 +25,11 @@ public class EzySimpleArrayBuilder
     }
 
     protected EzyArray newProduct () {
-        EzyArrayList answer = new EzyArrayList(
+        return new EzyArrayList(
             inputTransformer,
             outputTransformer,
             collectionConverter
         );
-        return answer;
     }
 
     @Override
@@ -61,6 +60,7 @@ public class EzySimpleArrayBuilder
         return this;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public EzyArrayBuilder append (EzyBuilder builder) {
         Object value = builder.build();
