@@ -70,7 +70,10 @@ public final class EzyNumbersConverter {
 
     // wrapper
     public static <I, O> O[] objectsToWrapperNumbers (
-        Collection<I> coll, EzyNewArray<O> newer, EzyFunction<I, O> mapper) {
+        Collection<I> coll,
+        EzyNewArray<O> newer,
+        EzyFunction<I, O> mapper
+    ) {
         int index = 0;
         O[] answer = newer.apply(coll.size());
         for (I item : coll) {
