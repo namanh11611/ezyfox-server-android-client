@@ -51,6 +51,14 @@ public class EzySimpleMessage implements EzyMessage {
     }
 
     @Override
+    public int getContentStartIndex() {
+        if (header.isRawBytes()) {
+            return 0;
+        }
+        return 1 + getSizeLength();
+    }
+
+    @Override
     public String toString () {
         return "(" +
             "header: " + header + ", " +

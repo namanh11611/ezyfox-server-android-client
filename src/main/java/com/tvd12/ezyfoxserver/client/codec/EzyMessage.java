@@ -43,4 +43,11 @@ public interface EzyMessage {
      * @return true or false
      */
     boolean hasBigSize ();
+
+    /**
+     * Get start index of content byte array.
+     *
+     * @return the start index
+     */
+    int getContentStartIndex();
 }
