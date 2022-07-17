@@ -28,6 +28,5 @@ public final class MsgPackConstant {
 
     public static final int MAX_SMALL_MESSAGE_SIZE = EzyMath.bin2int(16);
 
-    private MsgPackConstant () {
-    }
+    private MsgPackConstant () {}
 }
