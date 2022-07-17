@@ -8,23 +8,21 @@ import java.util.List;
 @SuppressWarnings("rawtypes")
 public final class EzyEntityArrays {
 
-	private EzyEntityArrays() {
-	}
-	
-	public static EzyArray newArray() {
-		return EzyEntityFactory.newArray();
-	}
-	
-	public static EzyArray newArray(List list) {
-		EzyArray array = EzyEntityFactory.newArray();
-		array.add(list);
-		return array;
-	}
-	
-	public static EzyArray newArray(Object... args) {
-		EzyArray array = EzyEntityFactory.newArray();
-		array.add(args);
-		return array;
-	}
-	
+    private EzyEntityArrays () {}
+
+    public static EzyArray newArray () {
+        return EzyEntityFactory.newArray();
+    }
+
+    public static EzyArray newArray (List list) {
+        EzyArray array = EzyEntityFactory.newArray();
+        array.add(list);
+        return array;
+    }
+
+    public static EzyArray newArray (Object... args) {
+        EzyArray array = EzyEntityFactory.newArray();
+        array.add(args);
+        return array;
+    }
 }

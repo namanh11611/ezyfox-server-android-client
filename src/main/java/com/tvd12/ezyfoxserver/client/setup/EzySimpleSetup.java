@@ -9,37 +9,38 @@ import com.tvd12.ezyfoxserver.client.manager.EzyHandlerManager;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tavandung12 on 9/30/18.
- */
-
 public class EzySimpleSetup implements EzySetup {
 
     private final EzyHandlerManager handlerManager;
     private final Map<String, EzyAppSetup> appSetups;
 
-    public EzySimpleSetup(EzyHandlerManager handlerManager) {
+    public EzySimpleSetup (EzyHandlerManager handlerManager) {
         this.handlerManager = handlerManager;
         this.appSetups = new HashMap<>();
     }
 
     @Override
-    public EzySetup addDataHandler(Object cmd, EzyDataHandler dataHandler) {
+    public EzySetup addDataHandler (Object cmd, EzyDataHandler dataHandler) {
         handlerManager.addDataHandler(cmd, dataHandler);
         return this;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
-    public EzySetup addEventHandler(EzyEventType eventType, EzyEventHandler eventHandler) {
+    public EzySetup addEventHandler (
+        EzyEventType eventType,
+        EzyEventHandler eventHandler
+    ) {
         handlerManager.addEventHandler(eventType, eventHandler);
         return this;
     }
 
     @Override
-    public EzyAppSetup setupApp(String appName) {
+    public EzyAppSetup setupApp (String appName) {
         EzyAppSetup appSetup = appSetups.get(appName);
-        if(appSetup == null) {
-            EzyAppDataHandlers dataHandlers = handlerManager.getAppDataHandlers(appName);
+        if (appSetup == null) {
+            EzyAppDataHandlers dataHandlers =
+                handlerManager.getAppDataHandlers(appName);
             appSetup = new EzySimpleAppSetup(dataHandlers, this);
             appSetups.put(appName, appSetup);
         }

@@ -39,6 +39,15 @@ android {
         }
     }
 
+    dependencies {
+        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'com.tvd12:test-util:1.1.6'
+        testImplementation 'org.msgpack:msgpack:0.6.12'
+    }
+
+    configurations.implementation {
+        exclude group: 'org.testng', module: 'testng'
+    }
 }
 
 // apply from: 'publishing.gradle'

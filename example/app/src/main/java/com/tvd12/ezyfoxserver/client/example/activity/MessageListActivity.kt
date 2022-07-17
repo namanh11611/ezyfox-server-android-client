@@ -10,7 +10,7 @@ import com.tvd12.ezyfoxserver.client.example.R
 import com.tvd12.ezyfoxserver.client.example.data.MessageListAdapter
 import com.tvd12.ezyfoxserver.client.example.socket.SocketClientProxy
 
-class MessageListActivity: AppCompatActivity() {
+class MessageListActivity : AppCompatActivity() {
 
     private lateinit var messageList: ListView
     private lateinit var messageListAdapter: MessageListAdapter

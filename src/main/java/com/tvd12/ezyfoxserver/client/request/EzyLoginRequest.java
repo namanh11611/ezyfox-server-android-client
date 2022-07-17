@@ -4,10 +4,6 @@ import com.tvd12.ezyfoxserver.client.constant.EzyCommand;
 import com.tvd12.ezyfoxserver.client.entity.EzyData;
 import com.tvd12.ezyfoxserver.client.factory.EzyEntityFactory;
 
-/**
- * Created by tavandung12 on 10/1/18.
- */
-
 public class EzyLoginRequest implements EzyRequest {
 
     private final String zoneName;
@@ -15,16 +11,20 @@ public class EzyLoginRequest implements EzyRequest {
     private final String password;
     private final EzyData data;
 
-    public EzyLoginRequest(String zoneName,
-                           String username,
-                           String password) {
+    public EzyLoginRequest (
+        String zoneName,
+        String username,
+        String password
+    ) {
         this(zoneName, username, password, null);
     }
 
-    public EzyLoginRequest(String zoneName,
-                           String username,
-                           String password,
-                           EzyData data) {
+    public EzyLoginRequest (
+        String zoneName,
+        String username,
+        String password,
+        EzyData data
+    ) {
         this.zoneName = zoneName;
         this.username = username;
         this.password = password;
@@ -32,17 +32,16 @@ public class EzyLoginRequest implements EzyRequest {
     }
 
     @Override
-    public Object getCommand() {
+    public Object getCommand () {
         return EzyCommand.LOGIN;
     }
 
     @Override
-    public EzyData serialize() {
-        EzyData answer = EzyEntityFactory.newArrayBuilder()
-                .append(zoneName)
-                .append(username)
-                .append(password)
-                .append(data).build();
-        return answer;
+    public EzyData serialize () {
+        return EzyEntityFactory.newArrayBuilder()
+            .append(zoneName)
+            .append(username)
+            .append(password)
+            .append(data).build();
     }
 }

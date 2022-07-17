@@ -7,11 +7,10 @@ import com.tvd12.ezyfoxserver.client.factory.EzyEntityFactory;
 public class EzySimpleRequestSerializer implements EzyRequestSerializer {
 
     @Override
-    public EzyArray serialize(EzyCommand cmd, EzyArray data) {
-        EzyArray array = EzyEntityFactory.newArrayBuilder()
-                .append(cmd.getId())
-                .append(data)
-                .build();
-        return array;
+    public EzyArray serialize (EzyCommand cmd, EzyArray data) {
+        return EzyEntityFactory.newArrayBuilder()
+            .append(cmd.getId())
+            .append(data)
+            .build();
     }
 }

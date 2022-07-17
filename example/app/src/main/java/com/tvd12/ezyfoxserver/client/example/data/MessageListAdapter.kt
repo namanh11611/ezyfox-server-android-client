@@ -12,13 +12,13 @@ import com.tvd12.ezyfoxserver.client.example.R
 
 class MessageListAdapter(
     context: Context
-): ArrayAdapter<EzyObject>(context, R.layout.message_item) {
+) : ArrayAdapter<EzyObject>(context, R.layout.message_item) {
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater
             .from(context)
-            .inflate(R.layout.message_item, parent,false);
+            .inflate(R.layout.message_item, parent, false);
         val title = view.findViewById<TextView>(R.id.title)
         val subtitle = view.findViewById<TextView>(R.id.subtitle)
         val data = getItem(position)!!

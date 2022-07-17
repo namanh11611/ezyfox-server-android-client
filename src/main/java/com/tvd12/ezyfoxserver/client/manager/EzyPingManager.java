@@ -1,17 +1,12 @@
 package com.tvd12.ezyfoxserver.client.manager;
 
-/**
- * Created by tavandung12 on 10/8/18.
- */
-
 public interface EzyPingManager {
 
-    long getPingPeriod();
+    long getPingPeriod ();
 
-    int increaseLostPingCount();
+    int increaseLostPingCount ();
 
-    int getMaxLostPingCount();
+    int getMaxLostPingCount ();
 
-    void setLostPingCount(int count);
-
+    void setLostPingCount (int count);
 }

@@ -7,10 +7,9 @@ import com.tvd12.ezyfoxserver.client.util.EzyReleasable;
 
 public interface EzyResponse extends EzyReleasable {
 
-    EzyArray getData();
+    EzyArray getData ();
 
-    long getTimestamp();
-    
-    EzyCommand getCommand();
-    
+    long getTimestamp ();
+
+    EzyCommand getCommand ();
 }

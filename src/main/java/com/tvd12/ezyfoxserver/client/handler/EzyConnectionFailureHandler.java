@@ -6,14 +6,11 @@ import com.tvd12.ezyfoxserver.client.constant.EzyConnectionStatus;
 import com.tvd12.ezyfoxserver.client.event.EzyConnectionFailureEvent;
 import com.tvd12.ezyfoxserver.client.logger.EzyLogger;
 
-/**
- * Created by tavandung12 on 10/3/18.
- */
-
-public class EzyConnectionFailureHandler extends EzyAbstractEventHandler<EzyConnectionFailureEvent> {
+public class EzyConnectionFailureHandler
+    extends EzyAbstractEventHandler<EzyConnectionFailureEvent> {
 
     @Override
-    public final void handle(EzyConnectionFailureEvent event) {
+    public final void handle (EzyConnectionFailureEvent event) {
         EzyLogger.info("connection failure, reason = " + event.getReason());
         EzyClientConfig config = client.getConfig();
         EzyReconnectConfig reconnectConfig = config.getReconnect();
@@ -21,22 +18,24 @@ public class EzyConnectionFailureHandler extends EzyAbstractEventHandler<EzyConn
         boolean mustReconnect = reconnectConfig.isEnable() && shouldReconnect;
         boolean reconnecting = false;
         client.setStatus(EzyConnectionStatus.FAILURE);
-        if(mustReconnect)
+        if (mustReconnect) {
             reconnecting = client.reconnect();
-        if(reconnecting) {
-            onReconnecting(event);
         }
-        else {
+        if (reconnecting) {
+            onReconnecting(event);
+        } else {
             onConnectionFailed(event);
         }
         postHandle(event);
     }
 
-    protected boolean shouldReconnect(EzyConnectionFailureEvent event) {
+    protected boolean shouldReconnect (EzyConnectionFailureEvent event) {
         return true;
     }
 
-    protected void onReconnecting(EzyConnectionFailureEvent event) { }
-    protected void onConnectionFailed(EzyConnectionFailureEvent event) { }
-    protected void postHandle(EzyConnectionFailureEvent event) { }
+    protected void onReconnecting (EzyConnectionFailureEvent event) {}
+
+    protected void onConnectionFailed (EzyConnectionFailureEvent event) {}
+
+    protected void postHandle (EzyConnectionFailureEvent event) {}
 }

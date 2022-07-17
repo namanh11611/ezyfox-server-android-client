@@ -7,23 +7,21 @@ import com.tvd12.ezyfoxserver.client.handler.EzyDataHandlers;
 import com.tvd12.ezyfoxserver.client.handler.EzyEventHandler;
 import com.tvd12.ezyfoxserver.client.handler.EzyEventHandlers;
 
-/**
- * Created by tavandung12 on 10/9/18.
- */
-
 public interface EzyHandlerManager {
 
-    EzyEventHandlers getEventHandlers();
+    EzyEventHandlers getEventHandlers ();
 
-    EzyDataHandlers getDataHandlers();
+    EzyDataHandlers getDataHandlers ();
 
-    EzyDataHandler getDataHandler(Object cmd);
+    EzyDataHandler getDataHandler (Object cmd);
 
-    EzyEventHandler getEventHandler(EzyConstant eventType);
+    @SuppressWarnings("rawtypes")
+    EzyEventHandler getEventHandler (EzyConstant eventType);
 
-    void addDataHandler(Object cmd, EzyDataHandler dataHandler);
+    void addDataHandler (Object cmd, EzyDataHandler dataHandler);
 
-    void addEventHandler(EzyConstant eventType, EzyEventHandler eventHandler);
+    @SuppressWarnings("rawtypes")
+    void addEventHandler (EzyConstant eventType, EzyEventHandler eventHandler);
 
-    EzyAppDataHandlers getAppDataHandlers(String appName);
+    EzyAppDataHandlers getAppDataHandlers (String appName);
 }

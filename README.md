@@ -1,4 +1,5 @@
 # ezyfox-server-android-client <img src="https://github.com/youngmonkeys/ezyfox-server/blob/master/logo.png" width="64" />
+
 android client for ezyfox server
 
 # Synopsis
@@ -6,6 +7,7 @@ android client for ezyfox server
 android client for ezyfox server
 
 # Documentation
+
 [https://youngmonkeys.org/ezyfox-android-client-sdk/](https://youngmonkeys.org/ezyfox-android-client-sdk/)
 
 # Code Example
@@ -36,5 +38,7 @@ appSetup.addDataHandler(Commands.SUGGEST_CONTACTS, SuggestContactsResponseHandle
 appSetup.addDataHandler(Commands.SEARCH_CONTACTS, SearchContactsResponseHandler())
 appSetup.addDataHandler(Commands.ADD_CONTACTS, AddContactsResponseHandler())
 ```
+
 # Used By
+
 1. [freechat](https://youngmonkeys.org/asset/freechat/)

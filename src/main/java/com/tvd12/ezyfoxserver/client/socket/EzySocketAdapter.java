@@ -5,21 +5,22 @@ public abstract class EzySocketAdapter {
     protected volatile boolean stopped;
     protected final Object adapterLock;
 
-    public EzySocketAdapter() {
+    public EzySocketAdapter () {
         this.active = false;
         this.stopped = false;
         this.adapterLock = new Object();
     }
 
-    public void start() {
+    public void start () {
         synchronized (adapterLock) {
-            if (active)
+            if (active) {
                 return;
+            }
             active = true;
             stopped = false;
             Thread newThread = new Thread(new Runnable() {
                 @Override
-                public void run() {
+                public void run () {
                     loop();
                 }
             });
@@ -28,42 +29,40 @@ public abstract class EzySocketAdapter {
         }
     }
 
-    protected abstract String getThreadName();
+    protected abstract String getThreadName ();
 
-    protected void loop() {
+    protected void loop () {
         update();
-        setStopped(true);
+        setStopped();
     }
 
-    protected abstract void update();
+    protected abstract void update ();
 
-    public void stop() {
+    public void stop () {
         synchronized (adapterLock) {
             active = false;
         }
     }
 
-    protected void setActive(boolean active)
-    {
+    protected void setActive (boolean active) {
         synchronized (adapterLock) {
             this.active = active;
         }
     }
 
-    protected void setStopped(boolean stopped)
-    {
+    protected void setStopped () {
         synchronized (adapterLock) {
-            this.stopped = stopped;
+            this.stopped = true;
         }
     }
 
-    public boolean isActive() {
+    public boolean isActive () {
         synchronized (adapterLock) {
             return active;
         }
     }
 
-    public boolean isStopped() {
+    public boolean isStopped () {
         synchronized (adapterLock) {
             return stopped;
         }

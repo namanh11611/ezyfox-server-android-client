@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".activity.MessageListActivity"
-            android:label="@string/message_list"/>
+            android:label="@string/message_list" />
     </application>
 
 </manifest>

@@ -8,34 +8,30 @@ import com.tvd12.ezyfoxserver.client.socket.EzyPingSchedule;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tavandung12 on 9/30/18.
- */
-
 public class EzyDataHandlers extends EzyAbstractHandlers {
 
     private final Map<Object, EzyDataHandler> handlers;
 
-    public EzyDataHandlers(EzyClient client, EzyPingSchedule pingSchedule) {
+    public EzyDataHandlers (EzyClient client, EzyPingSchedule pingSchedule) {
         super(client, pingSchedule);
         this.handlers = new HashMap<>();
     }
 
-    public void addHandler(Object cmd, EzyDataHandler handler) {
+    public void addHandler (Object cmd, EzyDataHandler handler) {
         this.configHandler(handler);
         this.handlers.put(cmd, handler);
     }
 
-    public EzyDataHandler getHandler(Object cmd) {
-        EzyDataHandler handler = handlers.get(cmd);
-        return handler;
+    public EzyDataHandler getHandler (Object cmd) {
+        return handlers.get(cmd);
     }
 
-    public void handle(Object cmd, EzyArray data) {
+    public void handle (Object cmd, EzyArray data) {
         EzyDataHandler handler = handlers.get(cmd);
-        if(handler != null)
+        if (handler != null) {
             handler.handle(data);
-        else
+        } else {
             EzyLogger.warn("has no handler for command: " + cmd);
+        }
     }
 }

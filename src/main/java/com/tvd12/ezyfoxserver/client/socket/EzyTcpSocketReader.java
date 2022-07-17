@@ -8,17 +8,15 @@ public class EzyTcpSocketReader extends EzySocketReader {
 
     protected SocketChannel socket;
 
-    public void setSocket(SocketChannel socket) {
+    public void setSocket (SocketChannel socket) {
         this.socket = socket;
     }
 
     @Override
-    protected long readSocketData() {
+    protected long readSocketData () {
         try {
-            long bytesToRead = socket.read(buffer);
-            return bytesToRead;
-        }
-        catch (Exception e) {
+            return socket.read(buffer);
+        } catch (Exception e) {
             EzyLogger.warn("I/O error at socket-reader", e);
             return -1;
         }

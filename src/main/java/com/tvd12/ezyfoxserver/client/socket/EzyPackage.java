@@ -6,12 +6,11 @@ import com.tvd12.ezyfoxserver.client.util.EzyReleasable;
 
 public interface EzyPackage extends EzyReleasable {
 
-    EzyArray getData();
+    EzyArray getData ();
 
-    boolean isEncrypted();
+    boolean isEncrypted ();
 
-    byte[] getEncryptionKey();
-    
-    EzyConstant getTransportType();
-    
+    byte[] getEncryptionKey ();
+
+    EzyConstant getTransportType ();
 }

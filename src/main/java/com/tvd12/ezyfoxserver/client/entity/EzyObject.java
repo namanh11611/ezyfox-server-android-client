@@ -3,50 +3,43 @@ package com.tvd12.ezyfoxserver.client.entity;
 import java.util.Map;
 
 /**
- * Support to transport data between objects
- * 
- * @author tavandung12
- *
+ * Support to transport data between objects.
  */
 
 public interface EzyObject extends EzyRoObject {
 
-	/**
-	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
-	 * 
-	 * @param <V> the value type
-	 * @param key the key
-	 * @param value the value
-	 * @return the old value
-	 */
-	<V> V put(Object key, Object value);
-	
     /**
-     * @see java.util.Map#putAll(java.util.Map)
-     * 
+     * @param <V>   the value type
+     * @param key   the key
+     * @param value the value
+     * @return the old value
+     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+     */
+    <V> V put (Object key, Object value);
+
+    /**
      * @param m the map value
+     * @see java.util.Map#putAll(java.util.Map)
      */
     @SuppressWarnings("rawtypes")
-	void putAll(Map m);
-    
+    void putAll (Map m);
+
     /**
-     * @see java.util.Map#remove(java.lang.Object)
-     * 
      * @param <V> the value type
      * @param key the key
      * @return the removed value
+     * @see java.util.Map#remove(java.lang.Object)
      */
-    <V> V remove(Object key);
-    
+    <V> V remove (Object key);
+
     /**
      * @see java.util.Map#clear()
      */
-    void clear();
-    
+    void clear ();
+
     /**
      * @see com.tvd12.ezyfoxserver.client.entity.EzyData#duplicate()
      */
     @Override
-    EzyObject duplicate();
-
+    EzyObject duplicate ();
 }

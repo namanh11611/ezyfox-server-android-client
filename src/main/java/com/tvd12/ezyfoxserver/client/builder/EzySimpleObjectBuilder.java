@@ -8,58 +8,58 @@ import com.tvd12.ezyfoxserver.client.io.EzyOutputTransformer;
 
 import java.util.Map;
 
-public class EzySimpleObjectBuilder 
-		extends EzyTransformable
-		implements EzyObjectBuilder {
+public class EzySimpleObjectBuilder
+    extends EzyTransformable
+    implements EzyObjectBuilder {
 
-	protected final EzyObject product;
-	
-	public EzySimpleObjectBuilder(
-			EzyInputTransformer inputTransformer,
-			EzyOutputTransformer outputTransformer) {
-		super(inputTransformer, outputTransformer);
-		this.product = newProduct();
-	}
-	
-	protected EzyHashMap newProduct() {
-		EzyHashMap answer = new EzyHashMap(inputTransformer, outputTransformer);
-		return answer;
-	}
+    protected final EzyObject product;
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.tvd12.ezyfox.builder.EzyObjectBuilder#append(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	public EzyObjectBuilder append(Object key, Object value) {
-		this.product.put(key, value);
-		return this;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.tvd12.ezyfox.builder.EzyObjectBuilder#append(java.util.Map)
-	 */
-	@SuppressWarnings("rawtypes")
-	@Override
-	public EzyObjectBuilder append(Map map) {
-		this.product.putAll(map);
-		return this;
-	}
+    public EzySimpleObjectBuilder (
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer) {
+        super(inputTransformer, outputTransformer);
+        this.product = newProduct();
+    }
 
-	@Override
-	public EzyObjectBuilder append(Object key, EzyBuilder builder) {
-		Object value = builder.build();
-		return append(key, value);
-	}
+    protected EzyHashMap newProduct () {
+        EzyHashMap answer = new EzyHashMap(inputTransformer, outputTransformer);
+        return answer;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.tvd12.ezyfox.builder.EzyBuilder#build()
-	 */
-	@Override
-	public EzyObject build() {
-		return this.product;
-	}
-	
+    /*
+     * (non-Javadoc)
+     * @see com.tvd12.ezyfoxserver.client.builder.EzyObjectBuilder#append(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public EzyObjectBuilder append (Object key, Object value) {
+        this.product.put(key, value);
+        return this;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.tvd12.ezyfoxserver.client.builder.EzyObjectBuilder#append(java.util.Map)
+     */
+    @SuppressWarnings("rawtypes")
+    @Override
+    public EzyObjectBuilder append (Map map) {
+        this.product.putAll(map);
+        return this;
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public EzyObjectBuilder append (Object key, EzyBuilder builder) {
+        Object value = builder.build();
+        return append(key, value);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.tvd12.ezyfoxserver.client.builder.EzyBuilder#build()
+     */
+    @Override
+    public EzyObject build () {
+        return this.product;
+    }
 }

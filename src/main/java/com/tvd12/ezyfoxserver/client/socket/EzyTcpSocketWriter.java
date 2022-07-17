@@ -9,17 +9,15 @@ public class EzyTcpSocketWriter extends EzySocketWriter {
 
     protected SocketChannel socket;
 
-    public void setSocket(SocketChannel socket) {
+    public void setSocket (SocketChannel socket) {
         this.socket = socket;
     }
 
     @Override
-    protected int writeToSocket(ByteBuffer buffer) {
+    protected int writeToSocket (ByteBuffer buffer) {
         try {
-            int writtenBytes = socket.write(buffer);
-            return writtenBytes;
-        }
-        catch (Exception e) {
+            return socket.write(buffer);
+        } catch (Exception e) {
             EzyLogger.warn("I/O error at socket-writer", e);
             return -1;
         }

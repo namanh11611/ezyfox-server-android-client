@@ -4,10 +4,6 @@ import com.tvd12.ezyfoxserver.client.EzyClient;
 import com.tvd12.ezyfoxserver.client.manager.EzyAppManager;
 import com.tvd12.ezyfoxserver.client.manager.EzySimpleAppManager;
 
-/**
- * Created by tavandung12 on 10/2/18.
- */
-
 public class EzySimpleZone implements EzyZone {
 
     protected final int id;
@@ -15,7 +11,7 @@ public class EzySimpleZone implements EzyZone {
     protected final EzyClient client;
     protected final EzyAppManager appManager;
 
-    public EzySimpleZone(EzyClient client, int id, String name) {
+    public EzySimpleZone (EzyClient client, int id, String name) {
         this.id = id;
         this.name = name;
         this.client = client;
@@ -23,37 +19,35 @@ public class EzySimpleZone implements EzyZone {
     }
 
     @Override
-    public int getId() {
+    public int getId () {
         return id;
     }
 
     @Override
-    public String getName() {
+    public String getName () {
         return name;
     }
 
     @Override
-    public EzyClient getClient() {
+    public EzyClient getClient () {
         return client;
     }
 
     @Override
-    public EzyApp getApp() {
+    public EzyApp getApp () {
         return appManager.getApp();
     }
 
     @Override
-    public EzyAppManager getAppManager() {
+    public EzyAppManager getAppManager () {
         return appManager;
     }
 
     @Override
-    public String toString() {
-        return new StringBuilder()
-                .append("Zone(")
-                .append("id: ").append(id).append(", ")
-                .append("name: ").append(name)
-                .append(")")
-                .toString();
+    public String toString () {
+        return "Zone(" +
+            "id: " + id + ", " +
+            "name: " + name +
+            ")";
     }
 }

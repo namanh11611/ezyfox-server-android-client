@@ -23,27 +23,23 @@ import com.tvd12.ezyfoxserver.client.socket.EzyPingSchedule;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tavandung12 on 10/9/18.
- */
-
 public class EzySimpleHandlerManager implements EzyHandlerManager {
 
     protected final EzyClient client;
     protected final EzyPingSchedule pingSchedule;
     protected final EzyEventHandlers eventHandlers;
     protected final EzyDataHandlers dataHandlers;
-    protected final Map<String, EzyAppDataHandlers> appDataHandlerss;
+    protected final Map<String, EzyAppDataHandlers> appDataHandlersByName;
 
-    public EzySimpleHandlerManager(EzyClient client) {
+    public EzySimpleHandlerManager (EzyClient client) {
         this.client = client;
         this.pingSchedule = client.getPingSchedule();
         this.eventHandlers = newEventHandlers();
         this.dataHandlers = newDataHandlers();
-        this.appDataHandlerss = new HashMap<>();
+        this.appDataHandlersByName = new HashMap<>();
     }
 
-    private EzyEventHandlers newEventHandlers() {
+    private EzyEventHandlers newEventHandlers () {
         EzyEventHandlers handlers = new EzyEventHandlers(client, pingSchedule);
         handlers.addHandler(EzyEventType.CONNECTION_SUCCESS, new EzyConnectionSuccessHandler());
         handlers.addHandler(EzyEventType.CONNECTION_FAILURE, new EzyConnectionFailureHandler());
@@ -51,7 +47,7 @@ public class EzySimpleHandlerManager implements EzyHandlerManager {
         return handlers;
     }
 
-    private EzyDataHandlers newDataHandlers() {
+    private EzyDataHandlers newDataHandlers () {
         EzyDataHandlers handlers = new EzyDataHandlers(client, pingSchedule);
         handlers.addHandler(EzyCommand.PONG, new EzyPongHandler());
         handlers.addHandler(EzyCommand.LOGIN, new EzyLoginSuccessHandler());
@@ -63,42 +59,44 @@ public class EzySimpleHandlerManager implements EzyHandlerManager {
     }
 
     @Override
-    public EzyEventHandlers getEventHandlers() {
+    public EzyEventHandlers getEventHandlers () {
         return eventHandlers;
     }
 
     @Override
-    public EzyDataHandlers getDataHandlers() {
+    public EzyDataHandlers getDataHandlers () {
         return dataHandlers;
     }
 
     @Override
-    public EzyDataHandler getDataHandler(Object cmd) {
+    public EzyDataHandler getDataHandler (Object cmd) {
         return dataHandlers.getHandler(cmd);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
-    public EzyEventHandler getEventHandler(EzyConstant eventType) {
+    public EzyEventHandler getEventHandler (EzyConstant eventType) {
         return eventHandlers.getHandler(eventType);
     }
 
     @Override
-    public EzyAppDataHandlers getAppDataHandlers(String appName) {
-        EzyAppDataHandlers answer = appDataHandlerss.get(appName);
-        if(answer == null) {
+    public EzyAppDataHandlers getAppDataHandlers (String appName) {
+        EzyAppDataHandlers answer = appDataHandlersByName.get(appName);
+        if (answer == null) {
             answer = new EzyAppDataHandlers();
-            appDataHandlerss.put(appName, answer);
+            appDataHandlersByName.put(appName, answer);
         }
         return answer;
     }
 
     @Override
-    public void addDataHandler(Object cmd, EzyDataHandler dataHandler) {
+    public void addDataHandler (Object cmd, EzyDataHandler dataHandler) {
         dataHandlers.addHandler(cmd, dataHandler);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
-    public void addEventHandler(EzyConstant eventType, EzyEventHandler eventHandler) {
+    public void addEventHandler (EzyConstant eventType, EzyEventHandler eventHandler) {
         eventHandlers.addHandler(eventType, eventHandler);
     }
 }

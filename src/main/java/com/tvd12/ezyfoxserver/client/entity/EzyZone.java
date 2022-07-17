@@ -3,20 +3,15 @@ package com.tvd12.ezyfoxserver.client.entity;
 import com.tvd12.ezyfoxserver.client.EzyClient;
 import com.tvd12.ezyfoxserver.client.manager.EzyAppManager;
 
-/**
- * Created by tavandung12 on 10/2/18.
- */
-
 public interface EzyZone {
 
-    int getId();
+    int getId ();
 
-    String getName();
+    String getName ();
 
-    EzyClient getClient();
+    EzyClient getClient ();
 
-    EzyApp getApp();
+    EzyApp getApp ();
 
-    EzyAppManager getAppManager();
-
+    EzyAppManager getAppManager ();
 }

@@ -33,13 +33,9 @@ import java.util.Set;
 import static com.tvd12.ezyfoxserver.client.constant.EzyConnectionStatuses.isClientConnectable;
 import static com.tvd12.ezyfoxserver.client.constant.EzyConnectionStatuses.isClientReconnectable;
 
-/**
- * Created by tavandung12 on 9/20/18.
- */
-
 public class EzyTcpClient
-        extends EzyEntity
-        implements EzyClient, EzyMeAware, EzyZoneAware {
+    extends EzyEntity
+    implements EzyClient, EzyMeAware, EzyZoneAware {
 
     protected EzyUser me;
     protected EzyZone zone;
@@ -61,7 +57,7 @@ public class EzyTcpClient
     protected final EzySocketClient socketClient;
     protected final EzyPingSchedule pingSchedule;
 
-    public EzyTcpClient(EzyClientConfig config) {
+    public EzyTcpClient (EzyClientConfig config) {
         this.config = config;
         this.name = config.getClientName();
         this.status = EzyConnectionStatus.NULL;
@@ -74,14 +70,14 @@ public class EzyTcpClient
         this.socketClient = newSocketClient();
     }
 
-    protected Set<Object> newUnloggableCommands() {
+    protected Set<Object> newUnloggableCommands () {
         Set<Object> set = new HashSet<>();
         set.add(EzyCommand.PING);
         set.add(EzyCommand.PONG);
         return set;
     }
 
-    protected EzySocketClient newSocketClient() {
+    protected EzySocketClient newSocketClient () {
         EzyTcpSocketClient client = new EzyTcpSocketClient(config);
         client.setPingSchedule(pingSchedule);
         client.setPingManager(pingManager);
@@ -92,12 +88,12 @@ public class EzyTcpClient
     }
 
     @Override
-    public EzySetup setup() {
+    public EzySetup setup () {
         return settingUp;
     }
 
     @Override
-    public void connect(String host, int port) {
+    public void connect (String host, int port) {
         try {
             if (!isClientConnectable(status)) {
                 EzyLogger.warn("client has already connected to: " + host + ":" + port);
@@ -112,7 +108,7 @@ public class EzyTcpClient
     }
 
     @Override
-    public boolean reconnect() {
+    public boolean reconnect () {
         if (!isClientReconnectable(status)) {
             String host = socketClient.getHost();
             int port = socketClient.getPort();
@@ -121,12 +117,13 @@ public class EzyTcpClient
         }
         preconnect();
         boolean success = socketClient.reconnect();
-        if (success)
+        if (success) {
             setStatus(EzyConnectionStatus.RECONNECTING);
+        }
         return success;
     }
 
-    protected void preconnect() {
+    protected void preconnect () {
         this.me = null;
         this.zone = null;
         this.publicKey = null;
@@ -135,49 +132,48 @@ public class EzyTcpClient
     }
 
     @Override
-    public void disconnect() {
+    public void disconnect () {
         disconnect(EzyDisconnectReason.CLOSE.getId());
     }
 
     @Override
-    public void close() {
+    public void close () {
         disconnect();
     }
 
     @Override
-    public void disconnect(int reason) {
+    public void disconnect (int reason) {
         socketClient.disconnect(reason);
     }
 
     @Override
-    public void send(EzyRequest request) {
+    public void send (EzyRequest request) {
         send(request, false);
     }
 
     @Override
-    public void send(EzyRequest request, boolean encrypted) {
+    public void send (EzyRequest request, boolean encrypted) {
         Object cmd = request.getCommand();
         EzyData data = request.serialize();
         send((EzyCommand) cmd, (EzyArray) data, encrypted);
     }
 
     @Override
-    public void send(EzyCommand cmd, EzyArray data) {
+    public void send (EzyCommand cmd, EzyArray data) {
         send(cmd, data, false);
     }
 
     @Override
-    public void send(EzyCommand cmd, EzyArray data, boolean encrypted) {
+    public void send (EzyCommand cmd, EzyArray data, boolean encrypted) {
         boolean shouldEncrypted = encrypted;
-        if(encrypted && sessionKey == null) {
-            if(config.isEnableDebug()) {
+        if (encrypted && sessionKey == null) {
+            if (config.isEnableDebug()) {
                 shouldEncrypted = false;
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException(
-                        "can not send command: " + cmd + " " +
-                                "you must enable SSL or enable debug mode by configuration " +
-                                "when you create the client"
+                    "can not send command: " + cmd + " " +
+                        "you must enable SSL or enable debug mode by configuration " +
+                        "when you create the client"
                 );
             }
 
@@ -190,130 +186,130 @@ public class EzyTcpClient
     }
 
     @Override
-    public void processEvents() {
+    public void processEvents () {
         socketClient.processEventMessages();
     }
 
     @Override
-    public String getName() {
+    public String getName () {
         return name;
     }
 
     @Override
-    public EzyClientConfig getConfig() {
+    public EzyClientConfig getConfig () {
         return config;
     }
 
     @Override
-    public EzySocketClient getSocket() {
+    public EzySocketClient getSocket () {
         return socketClient;
     }
 
     @Override
-    public boolean isEnableSSL() {
+    public boolean isEnableSSL () {
         return config.isEnableSSL();
     }
 
     @Override
-    public boolean isEnableDebug() {
+    public boolean isEnableDebug () {
         return config.isEnableDebug();
     }
 
     @Override
-    public EzyZone getZone() {
+    public EzyZone getZone () {
         return zone;
     }
 
     @Override
-    public void setZone(EzyZone zone) {
+    public void setZone (EzyZone zone) {
         this.zone = zone;
     }
 
     @Override
-    public EzyUser getMe() {
+    public EzyUser getMe () {
         return me;
     }
 
     @Override
-    public void setMe(EzyUser me) {
+    public void setMe (EzyUser me) {
         this.me = me;
     }
 
     @Override
-    public EzyConnectionStatus getStatus() {
+    public EzyConnectionStatus getStatus () {
         return status;
     }
 
     @Override
-    public void setStatus(EzyConnectionStatus status) {
+    public void setStatus (EzyConnectionStatus status) {
         this.status = status;
     }
 
     @Override
-    public boolean isConnected() {
+    public boolean isConnected () {
         return status == EzyConnectionStatus.CONNECTED;
     }
 
     @Override
-    public void setSessionId(long sessionId) {
+    public void setSessionId (long sessionId) {
         this.sessionId = sessionId;
         this.socketClient.setSessionId(sessionId);
     }
 
     @Override
-    public long getSessionId() {
+    public long getSessionId () {
         return sessionId;
     }
 
     @Override
-    public void setSessionToken(String token) {
+    public void setSessionToken (String token) {
         this.sessionToken = token;
         this.socketClient.setSessionToken(sessionToken);
     }
 
     @Override
-    public String getSessionToken() {
+    public String getSessionToken () {
         return sessionToken;
     }
 
     @Override
-    public void setSessionKey(byte[] sessionKey) {
+    public void setSessionKey (byte[] sessionKey) {
         this.sessionKey = sessionKey;
         this.socketClient.setSessionKey(sessionKey);
     }
 
     @Override
-    public byte[] getSessionKey() {
+    public byte[] getSessionKey () {
         return sessionKey;
     }
 
     @Override
-    public void setPublicKey(byte[] publicKey) {
+    public void setPublicKey (byte[] publicKey) {
         this.publicKey = publicKey;
     }
 
     @Override
-    public byte[] getPublicKey() {
+    public byte[] getPublicKey () {
         return publicKey;
     }
 
     @Override
-    public void setPrivateKey(byte[] privateKey) {
+    public void setPrivateKey (byte[] privateKey) {
         this.privateKey = privateKey;
     }
 
     @Override
-    public byte[] getPrivateKey() {
+    public byte[] getPrivateKey () {
         return privateKey;
     }
 
     @Override
-    public EzyApp getApp() {
+    public EzyApp getApp () {
         return zone != null ? zone.getApp() : null;
     }
 
     @Override
-    public EzyApp getAppById(int appId) {
+    public EzyApp getAppById (int appId) {
         if (zone != null) {
             EzyAppManager appManager = zone.getAppManager();
             return appManager.getAppById(appId);
@@ -322,22 +318,23 @@ public class EzyTcpClient
     }
 
     @Override
-    public EzyPingManager getPingManager() {
+    public EzyPingManager getPingManager () {
         return pingManager;
     }
 
     @Override
-    public EzyPingSchedule getPingSchedule() {
+    public EzyPingSchedule getPingSchedule () {
         return pingSchedule;
     }
 
     @Override
-    public EzyHandlerManager getHandlerManager() {
+    public EzyHandlerManager getHandlerManager () {
         return handlerManager;
     }
 
-    private void printSentData(EzyCommand cmd, EzyArray data) {
-        if (!unloggableCommands.contains(cmd))
+    private void printSentData (EzyCommand cmd, EzyArray data) {
+        if (!unloggableCommands.contains(cmd)) {
             EzyLogger.debug("send command: " + cmd + " and data: " + data);
+        }
     }
 }

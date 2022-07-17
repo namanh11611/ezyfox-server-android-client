@@ -70,7 +70,7 @@ class SocketClientProxy private constructor() {
     fun connectToServer(username: String, password: String) {
         this.username = username
         this.password = password
-        if(!settedup) {
+        if (!settedup) {
             settedup = true
             setup()
         }
@@ -105,7 +105,7 @@ class SocketClientProxy private constructor() {
 
 internal class DisconnectionHandler(
     private val callback: () -> Unit
-): EzyDisconnectionHandler() {
+) : EzyDisconnectionHandler() {
     override fun postHandle(event: EzyDisconnectionEvent?) {
         callback.invoke()
     }
@@ -113,13 +113,13 @@ internal class DisconnectionHandler(
 
 internal class ConnectionFailureHandler(
     private val callback: () -> Unit
-): EzyConnectionFailureHandler() {
+) : EzyConnectionFailureHandler() {
     override fun onConnectionFailed(event: EzyConnectionFailureEvent?) {
         callback.invoke()
     }
 }
 
-internal class HandshakeHandler: EzyHandshakeHandler() {
+internal class HandshakeHandler : EzyHandshakeHandler() {
     override fun getLoginRequest(): EzyRequest {
         return EzyLoginRequest(
             ZONE_NAME,
@@ -129,7 +129,7 @@ internal class HandshakeHandler: EzyHandshakeHandler() {
     }
 }
 
-internal class LoginSuccessHandler: EzyLoginSuccessHandler() {
+internal class LoginSuccessHandler : EzyLoginSuccessHandler() {
     override fun handleLoginSuccess(responseData: EzyData?) {
         client.send(EzyAppAccessRequest(APP_NAME))
     }
@@ -137,7 +137,7 @@ internal class LoginSuccessHandler: EzyLoginSuccessHandler() {
 
 internal class AppAccessHandler(
     private val callback: () -> Unit
-): EzyAppAccessHandler() {
+) : EzyAppAccessHandler() {
     override fun postHandle(app: EzyApp?, data: EzyArray?) {
         callback.invoke()
     }
@@ -145,7 +145,7 @@ internal class AppAccessHandler(
 
 internal class GreetHandler(
     private val callback: (EzyObject) -> Unit
-): EzyAppDataHandler<EzyObject> {
+) : EzyAppDataHandler<EzyObject> {
     override fun handle(app: EzyApp, data: EzyObject) {
         callback.invoke(
             EzyEntityFactory.newObjectBuilder()
@@ -164,7 +164,7 @@ internal class GreetHandler(
 
 internal class SecureMessageHandler(
     private val callback: (EzyObject) -> Unit
-): EzyAppDataHandler<EzyObject> {
+) : EzyAppDataHandler<EzyObject> {
     override fun handle(app: EzyApp?, data: EzyObject) {
         callback.invoke(
             EzyEntityFactory.newObjectBuilder()

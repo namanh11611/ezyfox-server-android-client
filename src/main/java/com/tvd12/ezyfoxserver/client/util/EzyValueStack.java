@@ -4,44 +4,44 @@ import java.util.List;
 import java.util.Stack;
 
 public class EzyValueStack<V> {
+
     protected V topValue;
     protected V lastValue;
     protected V defaultValue;
     protected final Stack<V> values;
 
-    public EzyValueStack(V defValue) {
-        values = new Stack<V>();
+    public EzyValueStack (V defValue) {
+        values = new Stack<>();
         topValue = defValue;
         lastValue = defValue;
         defaultValue = defValue;
     }
 
-    public V top() {
+    public V top () {
         synchronized (this) {
             return topValue;
         }
     }
 
-    public V last() {
+    public V last () {
         synchronized (this) {
             return lastValue;
         }
     }
 
-    public V pop() {
+    public V pop () {
         synchronized (this) {
             int size = values.size();
             if (size > 0) {
                 topValue = values.pop();
-            }
-            else {
+            } else {
                 topValue = defaultValue;
             }
             return topValue;
         }
     }
 
-    public void popAll(List<V> buffer) {
+    public void popAll (List<V> buffer) {
         synchronized (this) {
             while (values.size() > 0)
                 buffer.add(values.pop());
@@ -49,7 +49,7 @@ public class EzyValueStack<V> {
     }
 
 
-    public void push(V value) {
+    public void push (V value) {
         synchronized (this) {
             topValue = value;
             lastValue = value;
@@ -57,7 +57,7 @@ public class EzyValueStack<V> {
         }
     }
 
-    public void clear() {
+    public void clear () {
         synchronized (this) {
             topValue = defaultValue;
             lastValue = defaultValue;
@@ -66,10 +66,9 @@ public class EzyValueStack<V> {
     }
 
 
-    public int size() {
+    public int size () {
         synchronized (this) {
-            int size = values.size();
-            return size;
+            return values.size();
         }
     }
 }

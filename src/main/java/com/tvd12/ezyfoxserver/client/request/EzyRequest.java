@@ -4,14 +4,9 @@ import com.tvd12.ezyfoxserver.client.entity.EzyData;
 
 import java.io.Serializable;
 
-/**
- * Created by tavandung12 on 10/1/18.
- */
-
 public interface EzyRequest extends Serializable {
 
-    Object getCommand();
+    Object getCommand ();
 
-    EzyData serialize();
-
+    EzyData serialize ();
 }

@@ -12,17 +12,17 @@ public enum EzySocketStatus implements EzyConstant {
 
     private final int id;
 
-    private EzySocketStatus(int id) {
+    EzySocketStatus (int id) {
         this.id = id;
     }
 
     @Override
-    public int getId() {
+    public int getId () {
         return id;
     }
 
     @Override
-    public String getName() {
+    public String getName () {
         return toString();
     }
 }

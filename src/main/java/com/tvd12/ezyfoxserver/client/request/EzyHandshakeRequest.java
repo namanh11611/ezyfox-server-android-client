@@ -4,10 +4,6 @@ import com.tvd12.ezyfoxserver.client.constant.EzyCommand;
 import com.tvd12.ezyfoxserver.client.entity.EzyData;
 import com.tvd12.ezyfoxserver.client.factory.EzyEntityFactory;
 
-/**
- * Created by tavandung12 on 10/1/18.
- */
-
 public class EzyHandshakeRequest implements EzyRequest {
 
     protected final String clientId;
@@ -17,11 +13,14 @@ public class EzyHandshakeRequest implements EzyRequest {
     protected final boolean enableEncryption;
     protected final String token;
 
-    public EzyHandshakeRequest(String clientId,
-                               byte[] clientKey,
-                               String clientType,
-                               String clientVersion,
-                               boolean enableEncryption, String token) {
+    public EzyHandshakeRequest (
+        String clientId,
+        byte[] clientKey,
+        String clientType,
+        String clientVersion,
+        boolean enableEncryption,
+        String token
+    ) {
         this.clientId = clientId;
         this.clientKey = clientKey;
         this.clientType = clientType;
@@ -31,19 +30,18 @@ public class EzyHandshakeRequest implements EzyRequest {
     }
 
     @Override
-    public Object getCommand() {
+    public Object getCommand () {
         return EzyCommand.HANDSHAKE;
     }
 
     @Override
-    public EzyData serialize() {
-        EzyData data = EzyEntityFactory.newArrayBuilder()
-                .append(clientId)
-                .append(clientKey)
-                .append(clientType)
-                .append(clientVersion)
-                .append(enableEncryption)
-                .append(token).build();
-        return data;
+    public EzyData serialize () {
+        return EzyEntityFactory.newArrayBuilder()
+            .append(clientId)
+            .append(clientKey)
+            .append(clientType)
+            .append(clientVersion)
+            .append(enableEncryption)
+            .append(token).build();
     }
 }

@@ -2,41 +2,47 @@ package com.tvd12.ezyfoxserver.client.codec;
 
 public class MsgPackObjectToMessage implements EzyObjectToMessage {
 
-	private final EzyObjectToBytes objectToBytes;
-	
-	public MsgPackObjectToMessage() {
-		this.objectToBytes = new MsgPackObjectToBytes(newSerializer());
-	}
+    private final EzyObjectToBytes objectToBytes;
 
-	protected EzyMessageSerializer newSerializer() {
-		EzyMessageSerializer serializer = new MsgPackSimpleSerializer();
-		return serializer;
-	}
+    public MsgPackObjectToMessage () {
+        this.objectToBytes = new MsgPackObjectToBytes(newSerializer());
+    }
 
-	@Override
-	public EzyMessage convert(Object object) {
-		EzyMessage message = packToMessage(convertToMessageContent(object), false);
-		return message;
-	}
+    protected EzyMessageSerializer newSerializer () {
+        return new MsgPackSimpleSerializer();
+    }
 
-	@Override
-	public byte[] convertToMessageContent(Object object) {
-		return objectToBytes.convert(object);
-	}
+    @Override
+    public EzyMessage convert (Object object) {
+        return packToMessage(convertToMessageContent(object), false);
+    }
 
-	@Override
-	public EzyMessage packToMessage(byte[] content, boolean encrypted) {
-		EzyMessage message = new EzySimpleMessage(newHeader(content, encrypted), content, content.length);
-		return message;
-	}
+    @Override
+    public byte[] convertToMessageContent (Object object) {
+        return objectToBytes.convert(object);
+    }
 
-	private EzyMessageHeader newHeader(byte[] content, boolean encrypted) {
-		EzyMessageHeader header = new EzySimpleMessageHeader(isBigMessage(content), encrypted, false, false, false, false);
-		return header;
-	}
+    @Override
+    public EzyMessage packToMessage (byte[] content, boolean encrypted) {
+        return new EzySimpleMessage(
+            newHeader(content, encrypted),
+            content,
+            content.length
+        );
+    }
 
-	private boolean isBigMessage(byte[] content) {
-		boolean answer = content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
-		return answer;
-	}
+    private EzyMessageHeader newHeader (byte[] content, boolean encrypted) {
+        return new EzySimpleMessageHeader(
+            isBigMessage(content),
+            encrypted,
+            false,
+            false,
+            false,
+            false
+        );
+    }
+
+    private boolean isBigMessage (byte[] content) {
+        return content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
+    }
 }

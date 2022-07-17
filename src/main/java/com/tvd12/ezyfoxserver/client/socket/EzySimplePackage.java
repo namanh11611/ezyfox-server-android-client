@@ -11,26 +11,30 @@ public class EzySimplePackage implements EzyPackage {
     protected byte[] encryptionKey;
     protected EzyConstant transportType;
 
-    public EzySimplePackage(
-            EzyArray data,
-            boolean encrypted, byte[] encryptionKey) {
+    public EzySimplePackage (
+        EzyArray data,
+        boolean encrypted,
+        byte[] encryptionKey
+    ) {
         this(data, encrypted, encryptionKey, EzyTransportType.TCP);
     }
 
-    public EzySimplePackage(EzyArray data, EzyConstant transportType) {
+    public EzySimplePackage (EzyArray data, EzyConstant transportType) {
         this(data, false, transportType);
     }
 
-    public EzySimplePackage(
-            EzyArray data,
-            boolean encrypted, EzyConstant transportType) {
+    public EzySimplePackage (
+        EzyArray data,
+        boolean encrypted, EzyConstant transportType) {
         this(data, encrypted, null, transportType);
     }
 
-    public EzySimplePackage(
-            EzyArray data,
-            boolean encrypted,
-            byte[] encryptionKey, EzyConstant transportType) {
+    public EzySimplePackage (
+        EzyArray data,
+        boolean encrypted,
+        byte[] encryptionKey,
+        EzyConstant transportType
+    ) {
         this.data = data;
         this.encrypted = encrypted;
         this.encryptionKey = encryptionKey;
@@ -38,28 +42,27 @@ public class EzySimplePackage implements EzyPackage {
     }
 
     @Override
-    public EzyArray getData() {
+    public EzyArray getData () {
         return data;
     }
 
     @Override
-    public boolean isEncrypted() {
+    public boolean isEncrypted () {
         return encrypted;
     }
 
     @Override
-    public byte[] getEncryptionKey() {
+    public byte[] getEncryptionKey () {
         return encryptionKey;
     }
 
     @Override
-    public EzyConstant getTransportType() {
+    public EzyConstant getTransportType () {
         return transportType;
     }
 
     @Override
-    public void release() {
+    public void release () {
         this.data = null;
     }
-
 }
