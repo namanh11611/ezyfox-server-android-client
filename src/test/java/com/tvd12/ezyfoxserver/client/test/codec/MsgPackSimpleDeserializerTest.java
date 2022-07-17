@@ -1,15 +1,18 @@
 package com.tvd12.ezyfoxserver.client.test.codec;
 
+import com.tvd12.ezyfoxserver.client.builder.EzyArrayBuilder;
 import com.tvd12.ezyfoxserver.client.builder.EzyObjectBuilder;
 import com.tvd12.ezyfoxserver.client.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfoxserver.client.entity.EzyArray;
 import com.tvd12.ezyfoxserver.client.io.EzyInts;
 import com.tvd12.ezyfoxserver.client.io.EzyLongs;
+import com.tvd12.ezyfoxserver.client.io.EzyMath;
 import com.tvd12.test.assertion.Asserts;
 
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MsgPackSimpleDeserializerTest extends MsgPackCodecTest {
 
@@ -49,5 +52,58 @@ public class MsgPackSimpleDeserializerTest extends MsgPackCodecTest {
         assert command == 26 : "deserialize error";
         assert token.equals("abcdef") : "deserialize error";
         Asserts.assertEquals(token, "abcdef");
+    }
+
+    @Test
+    public void binTest() throws IOException {
+        byte[] bin32 = new byte[EzyMath.bin2int(16)];
+        Arrays.fill(bin32, (byte) 'c');
+        String str32 = new String(bin32);
+        EzyObjectBuilder dataBuilder = newObjectBuilder()
+            .append("k", str32);
+        EzyArray request = newArrayBuilder()
+            .append(15)
+            .append(26)
+            .append("abcdef")
+            .append(dataBuilder)
+            .build();
+        int arrsize = request.size();
+        byte first = (byte) (arrsize | 0x90);
+        byte[] bytes = msgPack.write(request);
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        EzyArray answer = deserializer.deserialize(bytes);
+        int appId = answer.get(0);
+        int command = answer.get(1);
+        String token = answer.get(2);
+        assert appId == 15 : "deserialize error " + first;
+        assert command == 26 : "deserialize error";
+        assert token.equals("abcdef") : "deserialize error";
+        Asserts.assertEquals(token, "abcdef");
+    }
+
+    @Test
+    public void arrayTest() throws IOException {
+        int size = EzyMath.bin2int(14);
+        EzyArrayBuilder builder = newArrayBuilder();
+        for (int i = 0; i < size; ++i) {
+            builder.append(i);
+        }
+        byte[] bytes = msgPack.write(builder.build());
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        EzyArray answer = deserializer.deserialize(bytes);
+        Asserts.assertEquals(answer.get(size - 1), size - 1);
+    }
+
+    @Test
+    public void arrayTest2() throws IOException {
+        int size = EzyMath.bin2int(16);
+        EzyArrayBuilder builder = newArrayBuilder();
+        for (int i = 0; i < size; ++i) {
+            builder.append(i);
+        }
+        byte[] bytes = msgPack.write(builder.build());
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        EzyArray answer = deserializer.deserialize(bytes);
+        Asserts.assertEquals(answer.get(size - 1), size - 1);
     }
 }
