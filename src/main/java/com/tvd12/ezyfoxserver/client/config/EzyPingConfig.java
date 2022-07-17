@@ -24,7 +24,7 @@ public class EzyPingConfig {
 
         private long pingPeriod = 3000L;
         private int maxLostPingCount = 5;
-        private EzyClientConfig.Builder parent;
+        private final EzyClientConfig.Builder parent;
 
         public Builder (EzyClientConfig.Builder parent) {
             this.parent = parent;

@@ -30,7 +30,7 @@ public class EzyReconnectConfig {
         private boolean enable = true;
         private int maxReconnectCount = 5;
         private int reconnectPeriod = 3000;
-        private EzyClientConfig.Builder parent;
+        private final EzyClientConfig.Builder parent;
 
         public Builder (EzyClientConfig.Builder parent) {
             this.parent = parent;
