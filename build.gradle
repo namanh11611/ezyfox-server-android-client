@@ -29,7 +29,7 @@ android {
     defaultConfig {
         minSdkVersion 25
         versionCode 1
-        versionName "1.0.4"
+        versionName "1.0.5"
     }
 
     buildTypes {
@@ -41,7 +41,7 @@ android {
 
     dependencies {
         testImplementation 'junit:junit:4.13.2'
-        testImplementation 'com.tvd12:test-util:1.1.7'
+        testImplementation 'com.tvd12:test-util:1.1.8'
         testImplementation 'org.msgpack:msgpack:0.6.12'
     }
 
