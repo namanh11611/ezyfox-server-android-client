@@ -32,7 +32,7 @@ public class EzyConnectionSuccessHandler extends EzyAbstractEventHandler {
             getClientId(),
             generateClientKey(),
             "ANDROID",
-            "1.0.4",
+            "1.0.5",
             client.isEnableSSL(),
             getStoredToken()
         );

@@ -41,6 +41,7 @@ class SocketClientProxy private constructor() {
     private fun setup() {
         val config = EzyClientConfig.builder()
             .clientName(ZONE_NAME)
+            .enableSSL()
             .build()
         val clients = EzyClients.getInstance()
         this.client = clients.newDefaultClient(config)
@@ -74,7 +75,8 @@ class SocketClientProxy private constructor() {
             settedup = true
             setup()
         }
-        this.client.connect("tvd12.com", 3005)
+//        this.client.connect("tvd12.com", 3005)
+        this.client.connect("192.168.1.151", 3005)
     }
 
     fun sendGreetRequest() {

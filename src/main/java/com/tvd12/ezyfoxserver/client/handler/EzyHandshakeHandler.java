@@ -61,7 +61,7 @@ public abstract class EzyHandshakeHandler
 
     protected void handleLogin (EzyArray data) {
         EzyRequest loginRequest = getLoginRequest();
-        client.send(loginRequest);
+        client.send(loginRequest, client.isEnableSSL());
     }
 
     protected abstract EzyRequest getLoginRequest ();

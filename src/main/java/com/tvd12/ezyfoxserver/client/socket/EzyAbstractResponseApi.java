@@ -12,7 +12,18 @@ public abstract class EzyAbstractResponseApi implements EzyResponseApi {
 
     @Override
     public void response (EzyPackage pack) throws Exception {
-        Object bytes = encodeData(pack.getData());
+        Object bytes;
+        EzyArray data = pack.getData();
+        if (pack.isEncrypted()) {
+            bytes = encryptMessageContent(
+                dataToMessageContent(data),
+                pack.getEncryptionKey()
+            );
+        }
+        else {
+            bytes = encodeData(data);
+        }
+
         EzyPacket packet = createPacket(bytes, pack);
         packetQueue.add(packet);
     }
@@ -24,5 +35,16 @@ public abstract class EzyAbstractResponseApi implements EzyResponseApi {
         return packet;
     }
 
-    protected abstract Object encodeData (EzyArray data) throws Exception;
+    protected abstract Object encodeData (
+        EzyArray data
+    ) throws Exception;
+
+    protected abstract byte[] dataToMessageContent(
+        EzyArray data
+    ) throws Exception;
+
+    protected abstract byte[] encryptMessageContent(
+        byte[] messageContent,
+        byte[] encryptionKey
+    ) throws Exception;
 }
