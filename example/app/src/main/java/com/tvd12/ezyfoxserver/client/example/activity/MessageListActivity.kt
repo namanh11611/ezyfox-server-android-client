@@ -22,20 +22,22 @@ class MessageListActivity : AppCompatActivity() {
         messageListAdapter = MessageListAdapter(this)
         messageList = findViewById(R.id.messageList)
         messageList.adapter = messageListAdapter
-        val socketProxy = SocketClientProxy.getInstance();
-        socketProxy.onDisconnectedCallback {
+
+        SocketClientProxy.apply {
+            onDisconnectedCallback {
+            }
+            onMessage {
+                messageListAdapter.add(it)
+            }
+            onDisconnectedCallback {
+                loading.visibility = View.VISIBLE
+            }
+            onConnectionFailedCallback {
+                val loginIntent = Intent(this@MessageListActivity, LoginActivity::class.java)
+                loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(loginIntent)
+            }
+            sendGreetRequest()
         }
-        socketProxy.onMessage {
-            messageListAdapter.add(it)
-        }
-        socketProxy.onDisconnectedCallback {
-            loading.visibility = View.VISIBLE
-        }
-        socketProxy.onConnectionFailedCallback {
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(loginIntent)
-        }
-        SocketClientProxy.getInstance().sendGreetRequest()
     }
 }

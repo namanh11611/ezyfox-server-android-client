@@ -21,7 +21,7 @@ import com.tvd12.ezyfoxserver.client.socket.EzyMainEventsLoop
 const val ZONE_NAME = "example"
 const val APP_NAME = "hello-world"
 
-class SocketClientProxy private constructor() {
+object SocketClientProxy {
 
     lateinit var username: String
     lateinit var password: String
@@ -31,12 +31,6 @@ class SocketClientProxy private constructor() {
     private lateinit var disconnectedCallback: () -> Unit
     private lateinit var connectionFailedCallback: () -> Unit
     private lateinit var client: EzyClient
-
-    companion object {
-        private val INSTANCE = SocketClientProxy()
-
-        fun getInstance() = INSTANCE
-    }
 
     private fun setup() {
         val config = EzyClientConfig.builder()
@@ -85,7 +79,7 @@ class SocketClientProxy private constructor() {
             EzyEntityFactory.newObjectBuilder()
                 .append("who", "Android Developer")
                 .build()
-        );
+        )
     }
 
     fun onAuthenticated(callback: () -> Unit) {
@@ -125,8 +119,8 @@ internal class HandshakeHandler : EzyHandshakeHandler() {
     override fun getLoginRequest(): EzyRequest {
         return EzyLoginRequest(
             ZONE_NAME,
-            SocketClientProxy.getInstance().username,
-            SocketClientProxy.getInstance().password
+            SocketClientProxy.username,
+            SocketClientProxy.password
         )
     }
 }
@@ -160,7 +154,7 @@ internal class GreetHandler(
             EzyEntityFactory.newObjectBuilder()
                 .append("who", "Young Monkey")
                 .build()
-        );
+        )
     }
 }
 

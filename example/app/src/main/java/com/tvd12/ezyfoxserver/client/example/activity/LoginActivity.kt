@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        SocketClientProxy.getInstance().apply {
+        SocketClientProxy.apply {
             onDisconnectedCallback {
                 loading.visibility = View.GONE
                 showToast("reconnecting ...")
@@ -124,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun doLogin() {
         loading.visibility = View.VISIBLE
-        SocketClientProxy.getInstance().connectToServer(
+        SocketClientProxy.connectToServer(
             username = username.text.toString(),
             password = password.text.toString()
         )
